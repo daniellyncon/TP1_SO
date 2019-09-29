@@ -150,8 +150,6 @@ public class Secretary {
             } else {
                 deadline = LocalTime.of(23, 59);
             }
-
-
             r = new Request(owner, pages, deadline, p);
             requestList.add(r);
         }
