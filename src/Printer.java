@@ -1,5 +1,6 @@
 import java.time.LocalTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Printer {
     //private static final int PAGE_PER_MINUTE = 40;
@@ -23,7 +24,7 @@ public class Printer {
     }
 
     //nova versao
-    public void printRequests() {
+    public void printRequests() throws InterruptedException {
         LocalTime startingTime = LocalTime.now();
         LocalTime timeSpent = startingTime;
         for (Request request : this.getRequests()) {
@@ -33,7 +34,8 @@ public class Printer {
             //acrescentando 8 segundos entre uma impressao e outra
             timeSpent = timeSpent.plusSeconds(SECONDS_BETWEEN_PRINTS);
             System.out.println("Finalizada impressao de "+request.getDocumentOwner()+".");
-            System.out.println("Tempo gasto ate  o momento: "+timeSpent);
+            System.out.println("Tempo gasto ate  o momento: "+ timeSpent.minusNanos(startingTime.toNanoOfDay()) + "\n");
+            //Thread.sleep(8000);
         }
         System.out.println("Tempo total gasto: "+timeSpent.minusNanos(startingTime.toNanoOfDay()));
     }
