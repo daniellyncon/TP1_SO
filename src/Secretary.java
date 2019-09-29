@@ -5,30 +5,25 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 public class Secretary {
-    public static void main(String[] args) throws IOException {
-//        Priority p1 = Priority.C;
-//        Priority p2 = Priority.D;
-//        LocalTime localTime1 = LocalTime.of(15, 30);
-//        LocalTime localTime2 = LocalTime.of(14, 30);
-//        Request r = new Request("Tavin", 666, localTime1, p1);
-//
-//        System.out.println(localTime1);
-//        System.out.println(localTime2);
-//        System.out.println(localTime1.isAfter(localTime2));
-
-
+    public static void main(String[] args) {
         List<Request> requestList = requestList();
-        Comparator<Request> comparator = Comparator.comparing(Request::getPriority)
-                .thenComparing(Request::getPageNumber);
-        requestList.sort(comparator);
-        int q = quantityRegisters();
-        for(int i = 0; i< q;i++){
-            System.out.println(i);
-        }
+
+
+        Printer printer = new Printer(requestList);
+        printer.printRequests();
+
+
+
+
     }
+
+
+
+
 
     private static List<Request> requestList() {
         Scanner requests = null;
@@ -57,9 +52,9 @@ public class Secretary {
             if (requestData[3].length() == 5) {
                 deadline = LocalTime.parse(requestData[3]);
             } else if (requestData[3].length() == 4) {
-                deadline = LocalTime.parse("0"+requestData[3]);
+                deadline = LocalTime.parse("0" + requestData[3]);
             } else {
-                deadline = LocalTime.of(23,59);
+                deadline = LocalTime.of(23, 59);
             }
 
 

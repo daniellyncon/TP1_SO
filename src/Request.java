@@ -5,8 +5,8 @@ public class Request {
     private int pageNumber;
     private String documentOwner;
     private LocalTime deadline;
-    private LocalTime arrivalTime;
     private Priority priority;
+    private LocalTime arrivalTime;
 
     public Request(int pageNumber, String documentOwner, LocalTime deadline, Priority priority, LocalTime arrivalTime) {
         this.pageNumber = pageNumber;
@@ -64,31 +64,6 @@ public class Request {
         this.deadline = deadline;
     }
 
-//    //comparar pelo numero de paginas
-//    public int compareByPages(Request r) {
-//        if (this.pageNumber == r.getPageNumber())
-//            return 0;
-//        else if (this.pageNumber > (r.getPageNumber()))
-//            return 1;
-//        else
-//            return -1;
-//    }
-//
-//    //comparar pela prioridade
-//    public int compareByPriority(Request r) {
-//        return this.priority.compareTo(r.getPriority());
-//    }
-//
-//    //comparar pelo prazo
-//    public int compareByDeadline(Request r) {
-//        if (this.deadline.equals(r.getDeadline()))
-//            return 0;
-//        else if (this.getDeadline().isAfter(r.getDeadline()))
-//            return 1;
-//        else
-//            return -1;
-//    }
-
     @Override
     public String toString() {
         return "Request{" +
@@ -99,30 +74,6 @@ public class Request {
                 ", priority=" + priority +
                 '}';
     }
-}
 
-//class PageComparator implements Comparator<Request> {
-//    //comparar pelo numero de paginas
-//    public int compare(Request r1, Request r2) {
-//        return Integer.compare(r1.getPageNumber(), r2.getPageNumber());
-//    }
-//}
-//
-//class DeadlineComparator implements Comparator<Request> {
-//    //comparar pelo prazo
-//    public int compare(Request r1, Request r2) {
-//        if (r1.getDeadline().equals(r2.getDeadline()))
-//            return 0;
-//        else if (r1.getDeadline().isAfter(r2.getDeadline()))
-//            return 1;
-//        else
-//            return -1;
-//    }
-//}
-//
-//class PriorityComparator implements Comparator<Request> {
-//    //comparar por prioridade
-//    public int compare(Request r1, Request r2) {
-//        return r1.getPriority().compareTo(r2.getPriority());
-//    }
-//}
+
+}
