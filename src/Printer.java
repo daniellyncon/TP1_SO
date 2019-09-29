@@ -1,4 +1,5 @@
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +14,7 @@ public class Printer {
     }
 
     public Printer() {
+    	this.requests = new ArrayList<>();
     }
 
     public List<Request> getRequests() {
@@ -22,6 +24,10 @@ public class Printer {
     public void setRequests(List<Request> requests) {
         this.requests = requests;
     }
+    
+    public void adicionaRequisicao(Request request) {
+    	this.requests.add(request);
+    };
 
     //nova versao
     public void printRequests() throws InterruptedException {
