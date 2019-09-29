@@ -41,7 +41,7 @@ public class Printer {
             timeSpent = timeSpent.plusSeconds(SECONDS_BETWEEN_PRINTS);
             System.out.println("Finalizada impressao de "+request.getDocumentOwner()+".");
             System.out.println("Tempo gasto ate  o momento: "+ timeSpent.minusNanos(startingTime.toNanoOfDay()) + "\n");
-            //Thread.sleep(8000);
+
         }
         System.out.println("Tempo total gasto: "+timeSpent.minusNanos(startingTime.toNanoOfDay()));
     }
