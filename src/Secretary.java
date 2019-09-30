@@ -1,5 +1,9 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.time.LocalTime;
+import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,15 +13,50 @@ import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 public class Secretary {
-    public static void main(String[] args) throws IOException, InterruptedException {
-        menu();
+    public static void main(String[] args) throws InterruptedException {
+        int op;
+        do {
+            System.out.println("\n###                    Sistema de Impressão               ###");
+            System.out.println("       =====================================================");
+            System.out.println("      |    1. Pedidos chegam por email                     |");
+            System.out.println("      |    2. Execuçao em tempo real                       |");
+            System.out.println("      |    0. Sair                                         |");
+            System.out.println("       ====================================================\n");
+
+            System.out.print("Informe uma opcao: ");
+            op = Teclado.readInt();
+            System.out.print("\n");
+
+            switch (op) {
+                case 1:
+                    menuDuasImpressoras();
+                    break;
+                case 2:
+                    List<Request> requestList = requestListRealtime();
+                    Printer printer = new Printer(requestList);
+                    printer.realTimePrint();
+                    break;
+                case 3:
+                    menuDuasImpressoras();
+                case 0:
+                    System.out.println("Saindo do sistema");
+                    break;
+
+                default:
+                    System.out.println("Opcao Invalida");
+                    break;
+            }
+
+        } while (op != 0);
 
     }
 
-    public static void menu() throws IOException, InterruptedException {
+    static void menuDuasImpressoras() throws InterruptedException {
         List<Request> requestList = requestList();
         Printer printer = new Printer(requestList);
         int opcao = 0;
+        int qtdeImpressoras = 0;
+        boolean inserirAlternado = false;
         do {
             System.out.println("\n###                    Sistema de Impressão               ###");
             System.out.println("       =====================================================");
@@ -43,70 +82,169 @@ public class Secretary {
 
             System.out.print("Informe uma opcao: ");
             opcao = Teclado.readInt();
+            Printer printer1 = new Printer();
+            Printer printer2 = new Printer();
             System.out.print("\n");
             switch (opcao) {
                 case 1:
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+
+                    }
                     break;
                 case 2:
                     RequestSorter.sortRequestsByPageQuantity(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 3:
                     RequestSorter.sortRequestsByPriority(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 4:
                     RequestSorter.sortRequestsByDeadline(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 5:
                     RequestSorter.sortRequestByPageNumber_Priority(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 6:
                     RequestSorter.sortRequestByPageNumber_Deadline(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 7:
                     RequestSorter.sortRequestsByPriority_PageNumber(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 8:
                     RequestSorter.sortRequestsByPriority_Deadline(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 9:
                     RequestSorter.sortRequestByDeadline_PageNumber(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 10:
                     RequestSorter.sortRequestByDeadline_Priority(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 11:
                     RequestSorter.sortRequestByPageNumber_Priority_Deadline(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 12:
                     RequestSorter.sortRequestByPageNumber_Deadline_Priority(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 13:
                     RequestSorter.sortRequestByPriority_PageNumber_Deadline(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 14:
                     RequestSorter.sortRequestByPriority_Deadline_PageNumber(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 15:
                     RequestSorter.sortRequestByDeadline_PageNumber_Priority(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 16:
                     RequestSorter.sortRequestByDeadline_Priority_PageNumber(requestList);
-                    printer.printRequests();
+                    System.out.println("Digite a quantidade de impressoras(1 ou 2)");
+                    qtdeImpressoras = Teclado.readInt();
+                    if (qtdeImpressoras == 1)
+                        printer.printRequests();
+                    else {
+                        imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
                     break;
                 case 0:
                     break;
@@ -117,7 +255,6 @@ public class Secretary {
             }
         } while (opcao != 0);
     }
-
 
     private static List<Request> requestList() {
         Scanner requests = null;
@@ -151,7 +288,6 @@ public class Secretary {
                 deadline = LocalTime.of(23, 59);
             }
 
-
             r = new Request(owner, pages, deadline, p);
             requestList.add(r);
         }
@@ -159,15 +295,75 @@ public class Secretary {
         return requestList;
     }
 
-    private static int quantityRegisters() {
-        Scanner file = null;
+    private static void imprimir (Printer printer1, Printer printer2, boolean inserirAlternado, List<Request> requestList ) {
+        for (Request request : requestList) {
+            if (!inserirAlternado) {
+                printer1.getRequests().add(request);
+                inserirAlternado = true;
+            } else {
+                printer2.getRequests().add(request);
+                inserirAlternado = false;
+            }
+        }
+        System.out.println("Impressora 1");
         try {
-            file = new Scanner(new FileReader("requests.txt"));
+            printer1.printRequests();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("-------------------");
+        System.out.println("Impressora 2");
+        try {
+            printer2.printRequests();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    private static List<Request> requestListRealtime() {
+        Scanner requests = null;
+        try {
+            requests = new Scanner(new FileReader("realTimeRequests.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        int registersQuantity = Integer.parseInt(file.nextLine());
-        file.close();
-        return registersQuantity;
+        Request r;
+        Priority p;
+        List<Request> requestList = new ArrayList<>();
+        assert requests != null;
+        while (requests.hasNextLine()) {
+            String line = requests.nextLine();
+            String[] requestData = line.split(";");
+            String owner = requestData[0];
+            String priority = requestData[1];
+            if (priority.equals("P"))
+                p = Priority.P;
+            else if (priority.equals("C"))
+                p = Priority.C;
+            else
+                p = Priority.D;
+            int pages = Integer.parseInt(requestData[2]);
+            LocalTime deadline;
+            if (requestData[3].length() == 5) {
+                deadline = LocalTime.parse(requestData[3]);
+            } else if (requestData[3].length() == 4) {
+                deadline = LocalTime.parse("0" + requestData[3]);
+            } else {
+                deadline = LocalTime.of(23, 59);
+            }
+            LocalTime arrivalTime;
+            if (requestData[4].length() == 5) {
+                arrivalTime = LocalTime.parse(requestData[4]);
+            } else {
+                arrivalTime = LocalTime.parse("0" + requestData[4]);
+            }
+
+            r = new Request(pages, owner, deadline, p, arrivalTime);
+            requestList.add(r);
+        }
+        requests.close();
+        return requestList;
     }
 }

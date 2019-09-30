@@ -1,0 +1,8 @@
+James Sandero;P;160;1:20;7:58
+Jean Green;C;240;0;8:00
+Hank McCurtis;D;70;0;9:00
+Scott Winters;P;440;14:00;9:00
+Daniel Lyncon;D;600;9:00;9:00
+Otavio Guimaraes;P;30;10:00;9:30
+Carla Abreu;C;200;0;11:00
+Maria Eduarda;P;60;11:00;15:00
