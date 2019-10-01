@@ -1,5 +1,4 @@
 import java.time.LocalTime;
-import java.util.Comparator;
 
 public class Request {
     private int pageNumber;
@@ -66,13 +65,16 @@ public class Request {
 
     @Override
     public String toString() {
-        return "Request{" +
-                "pageNumber=" + pageNumber +
-                ", documentOwner='" + documentOwner + '\'' +
-                ", deadline=" + deadline +
-                ", arrivalTime=" + arrivalTime +
-                ", priority=" + priority +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Proprietario: ").append(documentOwner).append(", Numero de paginas: ").append(pageNumber);
+        if (this.deadline.compareTo(LocalTime.of(23,59)) == 0)
+            sb.append(", Prazo: nao definido");
+        else
+            sb.append(", Prazo: ").append(deadline);
+        sb.append(", Prioridade: ").append(priority);
+        if (this.arrivalTime != null)
+            sb.append(", Hora de chegada: ").append(arrivalTime);
+        return sb.toString();
     }
 
 
