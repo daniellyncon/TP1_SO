@@ -32,7 +32,7 @@ public class Secretary {
                     menuDuasImpressoras();
                     break;
                 case 2:
-                    List<Request> requestList = requestListRealtime();
+                    List<Request> requestList = requestList();
                     Printer printer = new Printer(requestList);
                     printer.realTimePrint();
                     break;
@@ -256,44 +256,6 @@ public class Secretary {
         } while (opcao != 0);
     }
 
-    private static List<Request> requestList() {
-        Scanner requests = null;
-        try {
-            requests = new Scanner(new FileReader("requests.txt"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        requests.nextLine();
-        Request r;
-        Priority p;
-        List<Request> requestList = new ArrayList<>();
-        while (requests.hasNextLine()) {
-            String line = requests.nextLine();
-            String[] requestData = line.split(";");
-            String owner = requestData[0];
-            String priority = requestData[1];
-            if (priority.equals("P"))
-                p = Priority.P;
-            else if (priority.equals("C"))
-                p = Priority.C;
-            else
-                p = Priority.D;
-            int pages = Integer.parseInt(requestData[2]);
-            LocalTime deadline;
-            if (requestData[3].length() == 5) {
-                deadline = LocalTime.parse(requestData[3]);
-            } else if (requestData[3].length() == 4) {
-                deadline = LocalTime.parse("0" + requestData[3]);
-            } else {
-                deadline = LocalTime.of(23, 59);
-            }
-
-            r = new Request(owner, pages, deadline, p);
-            requestList.add(r);
-        }
-        requests.close();
-        return requestList;
-    }
 
     private static void imprimir (Printer printer1, Printer printer2, boolean inserirAlternado, List<Request> requestList ) {
         for (Request request : requestList) {
@@ -322,13 +284,15 @@ public class Secretary {
 
 
 
-    private static List<Request> requestListRealtime() {
+    @SuppressWarnings("unlikely-arg-type")
+	private static List<Request> requestList() {
         Scanner requests = null;
         try {
-            requests = new Scanner(new FileReader("realTimeRequests.txt"));
+            requests = new Scanner(new FileReader("dadosImpressora20192.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        requests.nextLine();
         Request r;
         Priority p;
         List<Request> requestList = new ArrayList<>();
@@ -345,13 +309,14 @@ public class Secretary {
             else
                 p = Priority.D;
             int pages = Integer.parseInt(requestData[2]);
-            LocalTime deadline;
+            LocalTime deadline = null;
             if (requestData[3].length() == 5) {
                 deadline = LocalTime.parse(requestData[3]);
             } else if (requestData[3].length() == 4) {
                 deadline = LocalTime.parse("0" + requestData[3]);
-            } else {
-                deadline = LocalTime.of(23, 59);
+                if(deadline.equals("00:00")) {
+                	deadline = LocalTime.of(23, 59);
+                }
             }
             LocalTime arrivalTime;
             if (requestData[4].length() == 5) {

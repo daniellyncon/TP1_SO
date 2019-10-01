@@ -37,6 +37,7 @@ public class Printer {
     public void printRequests() throws InterruptedException {
         LocalTime startingTime = LocalTime.now();
         LocalTime timeSpent = startingTime;
+        
         for (Request request : this.getRequests()) {
             System.out.println("Imprimindo documento de " + request.getDocumentOwner() + " que tem " + request.getPageNumber() + " paginas...");
             //multiplicando o numero de paginas por 1500 milisegundos(1 segundo e meio) e dividindo por 1000 para converter de volta
@@ -44,8 +45,11 @@ public class Printer {
             //acrescentando 8 segundos entre uma impressao e outra
             timeSpent = timeSpent.plusSeconds(SECONDS_BETWEEN_PRINTS);
             System.out.println("Finalizada impressao de " + request.getDocumentOwner() + ".");
-            System.out.println("Tempo gasto ate  o momento: " + timeSpent.minusNanos(startingTime.toNanoOfDay()) + "\n");
-            Thread.sleep(8000);
+            System.out.println("Prazo de impressao: "+ request.getDeadline());
+            System.out.println("Hora que impressao finalizou: "+timeSpent);
+            System.out.println("Tempo gasto ate o momento: " + timeSpent.minusNanos(startingTime.toNanoOfDay()) + "\n");
+            
+            //Thread.sleep(8000);
         }
         System.out.println("Tempo total gasto: " + timeSpent.minusNanos(startingTime.toNanoOfDay()));
     }
@@ -66,32 +70,38 @@ public class Printer {
                 if (currentTime.toNanoOfDay() >= requests.get(0).getArrivalTime().toNanoOfDay()) {
 
                     while (currentTime.toNanoOfDay() >= requests.get(0).getArrivalTime().toNanoOfDay()){
+                    	
                         waitList.add(requests.remove(0));
+                        
+                        	
                         if (requests.size() == 0)
                             break;
+                        else {
+                        	System.out.println(currentTime+" "+waitList.get(waitList.size()-1).getDocumentOwner()+" entrou na lista de espera. "+waitList.size()+" documentos aguardando impressao.");
+                        	
+                        }
+                        	
                     }
-
-                    System.out.println("=================================================");
-                    System.out.println("=================================================");
-                    System.out.println("Exibindo lista ordenada");
+//                    para exibir lista de espera desconmentar aqui
+//
+//                    System.out.println("=================================================");
+//                    System.out.println("=================================================");
+//                    System.out.println("Exibindo lista ordenada");
                     RequestSorter.realTimeSort(waitList);
-                    for (Request r : waitList) {
-                        System.out.println(r);
-                    }
-                    System.out.println("Agora sao "+currentTime+" horas");
-                    System.out.println("=================================================");
-                    System.out.println("=================================================");
+//                    for (Request r : waitList) {
+//                        System.out.println(r);
+//                    }
+//                    System.out.println("=================================================");
+//                    System.out.println("=================================================");
                 }
             }
             if (waitList.size() > 0 && !isPrinting) {
                 currentOwner = waitList.get(0).getDocumentOwner();
-                System.out.println("Iniciando a impressao de " + waitList.get(0).getDocumentOwner()
+                System.out.println(currentTime+" Iniciando a impressao de " + waitList.get(0).getDocumentOwner()
                         + ", o documento possui " + waitList.get(0).getPageNumber() + " paginas.");
                 currentRequestTimeLeft = waitList.get(0).getPageNumber() * 1500 / 1000;
-                System.out.println(currentRequestTimeLeft);
                 isPrinting = true;
                 waitList.remove(0);
-                System.out.println("Agora sao "+currentTime+" horas");
             }
 
             //se estamos imprimindo, decrementar o tempo restante para imprimir o documento atual pelo tempo gasto por
@@ -103,7 +113,7 @@ public class Printer {
                 currentTime = currentTime.plusSeconds(1500 / 1000);
 
                 if (currentRequestTimeLeft <= 0) {
-                    System.out.println("Encenrrando impressao do documento de "+currentOwner);
+                    System.out.println(currentTime+" Encenrrando impressao do documento de "+currentOwner+"\n");
                     currentTime = currentTime.plusSeconds(8);
                     isPrinting = false;
                 }
@@ -111,7 +121,7 @@ public class Printer {
             } else {
                 currentTime = currentTime.plusSeconds(1);
             }
-            System.out.println("Agora sao "+currentTime+" horas");
+           // System.out.println("Agora sao "+currentTime+" horas");
 
         }
         System.out.println("Encerrando o dia de trabalho!");
