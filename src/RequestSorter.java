@@ -124,12 +124,21 @@ public class RequestSorter {
         return requestList;
     }
 
-    public static void realTimeSort(List<Request> requestList) {
+    public static void realTimeSort_Priority(List<Request> requestList) {
         Comparator<Request> comparator = Comparator.comparing(Request::getPriority)
                 .thenComparing(Request::getDeadline)
                 .thenComparing(Request::getPageNumber)
                 .thenComparing(Request::getArrivalTime);
         requestList.sort(comparator);
     }
+
+    public static void realTimeSort_Deadline(List<Request> requestList) {
+        Comparator<Request> comparator = Comparator.comparing(Request::getDeadline)
+                .thenComparing(Request::getPriority)
+                .thenComparing(Request::getPageNumber)
+                .thenComparing(Request::getArrivalTime);
+        requestList.sort(comparator);
+    }
+
 
 }

@@ -6,6 +6,8 @@ public class Request {
     private LocalTime deadline;
     private Priority priority;
     private LocalTime arrivalTime;
+    private LocalTime startTime;
+    private LocalTime finishTime;
 
     public Request(int pageNumber, String documentOwner, LocalTime deadline, Priority priority, LocalTime arrivalTime) {
         this.pageNumber = pageNumber;
@@ -15,12 +17,39 @@ public class Request {
         this.arrivalTime = arrivalTime;
     }
 
+    public Request(int pageNumber, String documentOwner, LocalTime deadline, Priority priority, LocalTime arrivalTime, LocalTime startTime, LocalTime finishTime) {
+        this.pageNumber = pageNumber;
+        this.documentOwner = documentOwner;
+        this.deadline = deadline;
+        this.priority = priority;
+        this.arrivalTime = arrivalTime;
+        this.startTime = startTime;
+        this.finishTime = finishTime;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(LocalTime finishTime) {
+        this.finishTime = finishTime;
+    }
 
     public Request(String documentOwner, int pageNumber, LocalTime deadline, Priority priority) {
         this.documentOwner = documentOwner;
         this.pageNumber = pageNumber;
         this.deadline = deadline;
         this.priority = priority;
+        this.startTime = LocalTime.of(0,0);
+        this.finishTime = LocalTime.of(0,0);
     }
 
     public LocalTime getArrivalTime() {

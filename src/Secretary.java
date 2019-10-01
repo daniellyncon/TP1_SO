@@ -7,6 +7,17 @@ import java.util.*;
 
 public class Secretary {
     public static void main(String[] args) throws InterruptedException {
+//        List<Request> requestList = requestList();
+//        Printer printer = new Printer();
+//        printer.realTimePrint();
+//
+//            Double prioridade = Report.averageReturnTime(printer.getReportData());
+//            System.out.println(prioridade);
+//
+//
+
+
+
         int op;
         do {
             System.out.println("\n###                    Sistema de Impressão               ###");
@@ -26,8 +37,8 @@ public class Secretary {
                     break;
                 case 2:
                     List<Request> requestList = requestList();
-                    Printer printer = new Printer(requestList);
-                    printer.realTimePrint();
+                    Printer printer3 = new Printer(requestList);
+                    printer3.realTimePrint();
                     break;
                 case 3:
                     menuDuasImpressoras();
@@ -69,6 +80,7 @@ public class Secretary {
             System.out.println("      |   14. Ordem de prioridade > prazo > paginas        |");
             System.out.println("      |   15. Ordem de prazo > paginas > prioridade        |");
             System.out.println("      |   16. Ordem de prazo > prioridade > paginas        |");
+            System.out.println("      |   17. Deus nos ajude                               |");
             System.out.println("      |                                                    |");
             System.out.println("      |    0. Sair                                         |");
             System.out.println("       ====================================================\n");
@@ -237,6 +249,16 @@ public class Secretary {
                         printer.printRequests();
                     else {
                         imprimir(printer1, printer2, inserirAlternado, requestList);
+                    }
+                    break;
+                case 17:
+                    Integer retorno = 0;
+                    printer.realTimePrint();
+                    System.out.println(printer.getReportData().size());
+                    for (Request r: printer.getReportData()){
+                        retorno += (r.getFinishTime().toSecondOfDay() - r.getFinishTime().toSecondOfDay());
+                        System.out.println(r.getStartTime());
+                        System.out.println(r.getFinishTime() + "\n");
                     }
                     break;
                 case 0:

@@ -8,12 +8,21 @@ public class Printer {
     private static final int TIME_SPENT_PER_PAGE = 1500 / 1000;
     private static final int SECONDS_BETWEEN_PRINTS = 8;
     private static final LocalTime OPENING_TIME = LocalTime.of(8, 0);
-    private static final LocalTime CLOSING_TIME = LocalTime.of(18, 0);
+    private static final LocalTime CLOSING_TIME = LocalTime.of(20, 0);
     private List<Request> requests;
+    private List<Request> reportData;
 
+    public List<Request> getReportData() {
+        return reportData;
+    }
+
+    public void setReportData(List<Request> reportData) {
+        this.reportData = reportData;
+    }
 
     public Printer(List<Request> requests) {
         this.requests = requests;
+        this.reportData = new ArrayList<>();
     }
 
     public Printer() {
@@ -54,7 +63,7 @@ public class Printer {
         System.out.println("Tempo total gasto: " + timeSpent.minusNanos(startingTime.toNanoOfDay()));
     }
 
-    public void realTimePrint() throws InterruptedException {
+    public List<Request> realTimePrint() throws InterruptedException {
 
         System.out.println("Começando o dia de trabalho!");
         LocalTime currentTime = OPENING_TIME;
@@ -70,24 +79,21 @@ public class Printer {
                 if (currentTime.toNanoOfDay() >= requests.get(0).getArrivalTime().toNanoOfDay()) {
 
                     while (currentTime.toNanoOfDay() >= requests.get(0).getArrivalTime().toNanoOfDay()){
-                    	
                         waitList.add(requests.remove(0));
-                        
-                        	
                         if (requests.size() == 0)
                             break;
                         else {
                         	System.out.println(currentTime+" "+waitList.get(waitList.size()-1).getDocumentOwner()+" entrou na lista de espera. "+waitList.size()+" documentos aguardando impressao.");
-                        	
+
                         }
-                        	
+
                     }
 //                    para exibir lista de espera desconmentar aqui
 //
 //                    System.out.println("=================================================");
 //                    System.out.println("=================================================");
 //                    System.out.println("Exibindo lista ordenada");
-                    RequestSorter.realTimeSort(waitList);
+                    RequestSorter.realTimeSort_Priority(waitList);
 //                    for (Request r : waitList) {
 //                        System.out.println(r);
 //                    }
@@ -96,9 +102,19 @@ public class Printer {
                 }
             }
             if (waitList.size() > 0 && !isPrinting) {
+                Request r = new Request(waitList.get(0).getPageNumber(),
+                                        waitList.get(0).getDocumentOwner(),
+                                        waitList.get(0).getDeadline(),
+                                        waitList.get(0).getPriority(),
+                                        waitList.get(0).getArrivalTime(),
+                                        waitList.get(0).getStartTime(),
+                                        waitList.get(0).getFinishTime());
+                reportData.add(r);
                 currentOwner = waitList.get(0).getDocumentOwner();
                 System.out.println(currentTime+" Iniciando a impressao de " + waitList.get(0).getDocumentOwner()
                         + ", o documento possui " + waitList.get(0).getPageNumber() + " paginas.");
+                System.out.println(reportData.size());
+                reportData.get(this.reportData.size()-1).setStartTime(currentTime);
                 currentRequestTimeLeft = waitList.get(0).getPageNumber() * 1500 / 1000;
                 isPrinting = true;
                 waitList.remove(0);
@@ -114,6 +130,7 @@ public class Printer {
 
                 if (currentRequestTimeLeft <= 0) {
                     System.out.println(currentTime+" Encenrrando impressao do documento de "+currentOwner+"\n");
+                    this.reportData.get(this.reportData.size()-1).setFinishTime(currentTime);
                     currentTime = currentTime.plusSeconds(8);
                     isPrinting = false;
                 }
@@ -125,6 +142,7 @@ public class Printer {
 
         }
         System.out.println("Encerrando o dia de trabalho!");
+        return reportData;
     }
 
 }
