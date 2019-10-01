@@ -48,7 +48,7 @@ public class Printer {
             System.out.println("Prazo de impressao: "+ request.getDeadline());
             System.out.println("Hora que impressao finalizou: "+timeSpent);
             System.out.println("Tempo gasto ate o momento: " + timeSpent.minusNanos(startingTime.toNanoOfDay()) + "\n");
-            
+            System.out.println("Tempo gasto ate  o momento: " + timeSpent.minusNanos(startingTime.toNanoOfDay()) + "\n");
             //Thread.sleep(8000);
         }
         System.out.println("Tempo total gasto: " + timeSpent.minusNanos(startingTime.toNanoOfDay()));
@@ -126,6 +126,5 @@ public class Printer {
         }
         System.out.println("Encerrando o dia de trabalho!");
     }
-
 
 }

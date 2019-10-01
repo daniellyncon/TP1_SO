@@ -1,23 +1,16 @@
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.time.LocalTime;
 import java.util.*;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.TemporalUnit;
-import java.util.*;
+
 
 public class Secretary {
     public static void main(String[] args) throws InterruptedException {
         int op;
         do {
             System.out.println("\n###                    Sistema de Impressão               ###");
-            System.out.println("       =====================================================");
+            System.out.println("       ====================================================");
             System.out.println("      |    1. Pedidos chegam por email                     |");
             System.out.println("      |    2. Execuçao em tempo real                       |");
             System.out.println("      |    0. Sair                                         |");
@@ -296,6 +289,7 @@ public class Secretary {
         Request r;
         Priority p;
         List<Request> requestList = new ArrayList<>();
+		requests.nextLine();
         assert requests != null;
         while (requests.hasNextLine()) {
             String line = requests.nextLine();
