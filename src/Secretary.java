@@ -80,7 +80,8 @@ public class Secretary {
             System.out.println("      |   14. Ordem de prioridade > prazo > paginas        |");
             System.out.println("      |   15. Ordem de prazo > paginas > prioridade        |");
             System.out.println("      |   16. Ordem de prazo > prioridade > paginas        |");
-            System.out.println("      |   17. Deus nos ajude                               |");
+            System.out.println("      |                                                    |");
+            System.out.println("      |   17. Relatorios                                   |");
             System.out.println("      |                                                    |");
             System.out.println("      |    0. Sair                                         |");
             System.out.println("       ====================================================\n");

@@ -54,9 +54,9 @@ public class Printer {
             //acrescentando 8 segundos entre uma impressao e outra
             timeSpent = timeSpent.plusSeconds(SECONDS_BETWEEN_PRINTS);
             System.out.println("Finalizada impressao de " + request.getDocumentOwner() + ".");
-            System.out.println("Prazo de impressao: "+ request.getDeadline());
-            System.out.println("Hora que impressao finalizou: "+timeSpent);
-            System.out.println("Tempo gasto ate o momento: " + timeSpent.minusNanos(startingTime.toNanoOfDay()) + "\n");
+            //System.out.println("Prazo de impressao: "+ request.getDeadline());
+            //System.out.println("Hora que impressao finalizou: "+timeSpent);
+            //System.out.println("Tempo gasto ate o momento: " + timeSpent.minusNanos(startingTime.toNanoOfDay()) + "\n");
             System.out.println("Tempo gasto ate  o momento: " + timeSpent.minusNanos(startingTime.toNanoOfDay()) + "\n");
             //Thread.sleep(8000);
         }
@@ -113,7 +113,7 @@ public class Printer {
                 currentOwner = waitList.get(0).getDocumentOwner();
                 System.out.println(currentTime+" Iniciando a impressao de " + waitList.get(0).getDocumentOwner()
                         + ", o documento possui " + waitList.get(0).getPageNumber() + " paginas.");
-                System.out.println(reportData.size());
+                //System.out.println(reportData.size());
                 reportData.get(this.reportData.size()-1).setStartTime(currentTime);
                 currentRequestTimeLeft = waitList.get(0).getPageNumber() * 1500 / 1000;
                 isPrinting = true;
@@ -129,7 +129,7 @@ public class Printer {
                 currentTime = currentTime.plusSeconds(1500 / 1000);
 
                 if (currentRequestTimeLeft <= 0) {
-                    System.out.println(currentTime+" Encenrrando impressao do documento de "+currentOwner+"\n");
+                    System.out.println(currentTime+" Encenrrando impressao do documento de "+currentOwner+" ("+(reportData.size()-1)+")\n");
                     this.reportData.get(this.reportData.size()-1).setFinishTime(currentTime);
                     currentTime = currentTime.plusSeconds(8);
                     isPrinting = false;
