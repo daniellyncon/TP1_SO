@@ -275,10 +275,21 @@ public class Secretary {
         float totalCoordenadoresNoPrazo = printer1.getCoordenadoresNoPrazo()+printer2.getCoordenadoresNoPrazo();
         float totalProfessoresNoPrazo = printer1.getProfessoresNoPrazo()+printer2.getProfessoresNoPrazo();
 
-        List<Integer> listaConjuntoMinutos = new ArrayList<>();
-        listaConjuntoMinutos.addAll(printer1.getMinutos());
-        listaConjuntoMinutos.addAll(printer2.getMinutos());
-        System.out.println(listaConjuntoMinutos.size());
+        List<Integer> listaMediaMinuntos = new ArrayList<>();
+        listaMediaMinuntos.addAll(printer1.getMediaTempoRetorno());
+        listaMediaMinuntos.addAll(printer2.getMediaTempoRetorno());
+        System.out.println(listaMediaMinuntos.size());
+        List<Integer> listaMediaRetornoDiretores = new ArrayList<>();
+        List<Integer> listaMediaRetornoCoordenadores = new ArrayList<>();
+        List<Integer> listaMediaRetornoProfessores = new ArrayList<>();
+        listaMediaRetornoDiretores.addAll(printer1.getMediaTempoRetornoDiretores());
+        listaMediaRetornoDiretores.addAll(printer2.getMediaTempoRetornoDiretores());
+        listaMediaRetornoCoordenadores.addAll((printer1.getMediaTempoRetornoCoordenadores()));
+        listaMediaRetornoCoordenadores.addAll((printer2.getMediaTempoRetornoCoordenadores()));
+        listaMediaRetornoProfessores.addAll((printer1.getMediaTempoRetornoProfessores()));
+        listaMediaRetornoProfessores.addAll((printer2.getMediaTempoRetornoProfessores()));
+
+
 
         System.out.printf("\nTotal de documentos impressos dentro do prazo: %2.0f\n", contagemDocumentos);
         System.out.printf("Porcentagem de impressoes dentro do prazo: %2.2f", porcentagemDocumentosDentroPrazo);
@@ -300,7 +311,10 @@ public class Secretary {
         System.out.printf("Total de documentos de professores dentro do prazo: %2.0f\n", totalProfessoresNoPrazo);
         System.out.printf("Porcentagem de impressoes de professores dentro do prazo: %2.2f", totalProfessoresNoPrazo / totalProfessores * 100);
         System.out.println("%.");
-        System.out.println("Tempo de retorno medio " + LocalTime.ofSecondOfDay((long) listaConjuntoMinutos.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
+        System.out.println("Tempo de retorno medio " + LocalTime.ofSecondOfDay((long) listaMediaMinuntos.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
+        System.out.println("Media tempo de retorno diretores " + LocalTime.ofSecondOfDay((long) listaMediaRetornoDiretores.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
+        System.out.println("Media tempo de retorno coordenadores " + LocalTime.ofSecondOfDay((long) listaMediaRetornoCoordenadores.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
+        System.out.println("Media tempo de retorno professores " + LocalTime.ofSecondOfDay((long) listaMediaRetornoProfessores.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
     }
 
 

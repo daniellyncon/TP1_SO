@@ -15,7 +15,22 @@ class Printer {
     private float diretoresNoPrazo;
     private float coordenadoresNoPrazo;
     private float professoresNoPrazo;
-    private List<Integer> minutos;
+    private List<Integer> mediaTempoRetorno;
+    private List<Integer> mediaTempoRetornoDiretores;
+    private List<Integer> mediaTempoRetornoCoordenadores;
+    private List<Integer> mediaTempoRetornoProfessores;
+
+    public List<Integer> getMediaTempoRetornoDiretores() {
+        return mediaTempoRetornoDiretores;
+    }
+
+    public List<Integer> getMediaTempoRetornoCoordenadores() {
+        return mediaTempoRetornoCoordenadores;
+    }
+
+    public List<Integer> getMediaTempoRetornoProfessores() {
+        return mediaTempoRetornoProfessores;
+    }
 
     List<Request> getReportData() {
         return reportData;
@@ -31,7 +46,10 @@ class Printer {
         this.diretoresNoPrazo = 0;
         this.coordenadoresNoPrazo = 0;
         this.professoresNoPrazo = 0;
-        this.minutos = new ArrayList<>();
+        this.mediaTempoRetorno = new ArrayList<>();
+        this.mediaTempoRetornoDiretores = new ArrayList<>();
+        this.mediaTempoRetornoCoordenadores = new ArrayList<>();
+        this.mediaTempoRetornoProfessores = new ArrayList<>();
     }
 
     Printer() {
@@ -44,7 +62,10 @@ class Printer {
         this.diretoresNoPrazo = 0;
         this.coordenadoresNoPrazo = 0;
         this.professoresNoPrazo = 0;
-        this.minutos = new ArrayList<>();
+        this.mediaTempoRetorno = new ArrayList<>();
+        this.mediaTempoRetornoDiretores = new ArrayList<>();
+        this.mediaTempoRetornoCoordenadores = new ArrayList<>();
+        this.mediaTempoRetornoProfessores = new ArrayList<>();
     }
 
     public static int getSecondsBetweenPrints() {
@@ -87,8 +108,8 @@ class Printer {
         return professoresNoPrazo;
     }
 
-    public List<Integer> getMinutos() {
-        return minutos;
+    public List<Integer> getMediaTempoRetorno() {
+        return mediaTempoRetorno;
     }
 
     List<Request> getRequests() {
@@ -121,7 +142,20 @@ class Printer {
             request.setFinishTime(timeSpent);
             System.out.println("Finalizada impressao de " + request.getDocumentOwner() + ". Termino: " + request.getFinishTime());
 
-            this.minutos.add(request.getFinishTime().toSecondOfDay() - OPENING_TIME.toSecondOfDay());
+
+
+            if (!request.getDeadline().equals(LocalTime.of(18, 0, 0, 0))) {
+                LocalTime newDeadline = OPENING_TIME.plusSeconds(request.getDeadline().toSecondOfDay());
+                request.setDeadline(newDeadline);
+            }
+
+            this.mediaTempoRetorno.add(request.getFinishTime().toSecondOfDay() - OPENING_TIME.toSecondOfDay());
+            if (request.getPriority().equals(Priority.D))
+                this.mediaTempoRetornoDiretores.add(request.getFinishTime().toSecondOfDay() - OPENING_TIME.toSecondOfDay());
+            else if (request.getPriority().equals(Priority.C))
+                this.mediaTempoRetornoCoordenadores.add(request.getFinishTime().toSecondOfDay() - OPENING_TIME.toSecondOfDay());
+            else
+                this.mediaTempoRetornoProfessores.add(request.getFinishTime().toSecondOfDay() - OPENING_TIME.toSecondOfDay());
             if (timeSpent.isBefore(request.getDeadline())) {
                 System.out.println("Documento impresso dentro do prazo!");
                 this.countDocuments++;
@@ -248,7 +282,13 @@ class Printer {
                     this.reportData.get(this.reportData.size() - 1).setFinishTime(currentTime);
 
                     //////////////////////////////////////////////////////////////////////////////////////////////
-                    this.minutos.add(currentTime.toSecondOfDay() - currentOwnerArrivalTime.toSecondOfDay());
+                    this.mediaTempoRetorno.add(currentTime.toSecondOfDay() - currentOwnerArrivalTime.toSecondOfDay());
+                    if (currentOwnerPriority.equals(Priority.D))
+                        this.mediaTempoRetornoDiretores.add(currentTime.toSecondOfDay() - currentOwnerArrivalTime.toSecondOfDay());
+                    else if (currentOwnerPriority.equals(Priority.C))
+                        this.mediaTempoRetornoCoordenadores.add(currentTime.toSecondOfDay() - currentOwnerArrivalTime.toSecondOfDay());
+                    else
+                        this.mediaTempoRetornoProfessores.add(currentTime.toSecondOfDay() - currentOwnerArrivalTime.toSecondOfDay());
                     if (currentTime.isBefore(currentOwnerDeadline)) {
                         System.out.println("Documento impresso dentro do prazo!\n");
                         this.countDocuments++;
@@ -310,7 +350,11 @@ class Printer {
         System.out.printf("Total de documentos de professores dentro do prazo: %2.0f\n", this.professoresNoPrazo);
         System.out.printf("Porcentagem de impressoes de professores dentro do prazo: %2.2f", this.professoresNoPrazo / this.countProfessors * 100);
         System.out.println("%.");
-        System.out.println("Tempo de retorno medio " + LocalTime.ofSecondOfDay((long) this.minutos.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
+        System.out.println("Media tempo de retorno geral " + LocalTime.ofSecondOfDay((long) this.mediaTempoRetorno.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
+        System.out.println("Media tempo de retorno diretores " + LocalTime.ofSecondOfDay((long) this.mediaTempoRetornoDiretores.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
+        System.out.println("Media tempo de retorno coordenadores " + LocalTime.ofSecondOfDay((long) this.mediaTempoRetornoCoordenadores.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
+        System.out.println("Media tempo de retorno professores " + LocalTime.ofSecondOfDay((long) this.mediaTempoRetornoProfessores.stream().mapToDouble(Integer::doubleValue).average().getAsDouble()));
+
     }
 
 

@@ -2,26 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9200b176-e5ba-4609-9e7b-224a6c90dbbe" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/danly.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Printer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Printer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Priority.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Priority.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Report.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Request.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Request.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/RequestSorter.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/RequestSorter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Secretary.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Secretary.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Teclado.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/EscalonamentoImpressaoSecretaria/Teclado.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Printer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Printer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Priority.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Priority.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Report.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RequestSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RequestSorter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Secretary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Secretary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Teclado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Teclado.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +77,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1570333413519</updated>
-      <workItem from="1570333423947" duration="27797000" />
+      <workItem from="1570333423947" duration="29552000" />
+      <workItem from="1570491247692" duration="3143000" />
     </task>
     <servers />
   </component>
@@ -106,7 +90,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
